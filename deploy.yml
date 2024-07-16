@@ -1,0 +1,294 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: client1
+  name: mongodb
+spec:
+  serviceName: mongodb
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mongo-db
+  template:
+    metadata:
+      labels:
+        app: mongo-db
+    spec:
+      containers:
+        - name: mongo
+          image: mukeshravi/mongodb:latestmongo
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0
+          ports:
+            - containerPort: 27017
+          command: ["mongod", "--replSet", "mongoRS"]
+          volumeMounts:
+            - name: mongo-key-client1
+              mountPath: "/etc/secrets-volume"
+              readOnly: true
+            - name: mongo-persistent-storage
+              mountPath: /data/db
+      volumes:
+        - name: mongo-key-client1
+          secret:
+            defaultMode: 0400
+            secretName: mongo-key-client1
+        - name: mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: mongo-pvc-1
+---
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  namespace: client2
+  name: mongodb
+spec: 
+  serviceName: mongodb
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: mongo-db
+  template: 
+    metadata: 
+      labels: 
+        app: mongo-db 
+    spec: 
+      containers: 
+        - name: mongo 
+          image: mukeshravi/mongodb:latestmongo 
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0  
+          ports: 
+            - containerPort: 27017 
+          volumeMounts: 
+            - name: mongo-key-client2
+              mountPath: "/etc/secrets-volume" 
+              readOnly: true 
+            - name: mongo-persistent-storage 
+              mountPath: /data/db
+      volumes: 
+        - name: mongo-key-client2
+          secret: 
+            defaultMode: 0400 
+            secretName: mongo-key-client2
+        - name: mongo-persistent-storage 
+          persistentVolumeClaim: 
+            claimName: mongo-pvc-2
+---
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  namespace: client3
+  name: mongodb
+spec: 
+  serviceName: mongodb
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: mongo-db
+  template: 
+    metadata: 
+      labels: 
+        app: mongo-db 
+    spec:  
+      containers: 
+        - name: mongo 
+          image: mukeshravi/mongodb:latestmongo 
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0  
+          ports: 
+            - containerPort: 27017 
+          volumeMounts: 
+            - name: mongo-key-client3
+              mountPath: "/etc/secrets-volume" 
+              readOnly: true 
+            - name: mongo-persistent-storage 
+              mountPath: /data/db 
+      volumes: 
+        - name: mongo-key-client3
+          secret: 
+            defaultMode: 0400 
+            secretName: mongo-key-client3
+        - name: mongo-persistent-storage 
+          persistentVolumeClaim: 
+            claimName: mongo-pvc-3
+---
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  namespace: client4
+  name: mongodb
+spec: 
+  serviceName: mongodb
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: mongo-db
+  template: 
+    metadata: 
+      labels: 
+        app: mongo-db 
+    spec:  
+      containers: 
+        - name: mongo 
+          image: mukeshravi/mongodb:latestmongo 
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0  
+          ports: 
+            - containerPort: 27017 
+          volumeMounts: 
+            - name: mongo-key-client4
+              mountPath: "/etc/secrets-volume" 
+              readOnly: true 
+            - name: mongo-persistent-storage 
+              mountPath: /data/db
+      volumes: 
+        - name: mongo-key-client4
+          secret: 
+            defaultMode: 0400 
+            secretName: mongo-key-client4
+        - name: mongo-persistent-storage 
+          persistentVolumeClaim: 
+            claimName: mongo-pvc-4
+---
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  namespace: client5
+  name: mongodb
+spec: 
+  serviceName: mongodb
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: mongo-db
+  template: 
+    metadata: 
+      labels: 
+        app: mongo-db 
+    spec:  
+      containers: 
+        - name: mongo 
+          image: mukeshravi/mongodb:latestmongo
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0  
+          ports: 
+            - containerPort: 27017 
+          volumeMounts: 
+            - name: mongo-key-client5
+              mountPath: "/etc/secrets-volume" 
+              readOnly: true 
+            - name: mongo-persistent-storage 
+              mountPath: /data/db 
+      volumes: 
+        - name: mongo-key-client5
+          secret: 
+            defaultMode: 0400 
+            secretName: mongo-key-client5
+        - name: mongo-persistent-storage 
+          persistentVolumeClaim: 
+            claimName: mongo-pvc-5
+---
+apiVersion: apps/v1 
+kind: StatefulSet 
+metadata: 
+  namespace: client6
+  name: mongodb
+spec: 
+  serviceName: mongodb
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: mongo-db
+  template: 
+    metadata: 
+      labels: 
+        app: mongo-db 
+    spec:  
+      containers: 
+        - name: mongo 
+          image: mukeshravi/mongodb:latestmongo 
+          env: 
+            - name: MONGODB_USERNAME 
+              value: admin 
+            - name: MONGODB_PASSWORD 
+              value: password 
+            - name: MONGODB_DBNAME 
+              value: admin 
+            - name: MONGODB_ROLE 
+              value: root 
+            - name: REPLICA_ID 
+              value: mongoRS 
+            - name: HOST 
+              value: mongodb0  
+          ports: 
+            - containerPort: 27017 
+          volumeMounts: 
+            - name: mongo-key-client6
+              mountPath: "/etc/secrets-volume" 
+              readOnly: true 
+            - name: mongo-persistent-storage 
+              mountPath: /data/db
+      volumes: 
+        - name: mongo-key-client6
+          secret: 
+            defaultMode: 0400 
+            secretName: mongo-key-client6
+        - name: mongo-persistent-storage 
+          persistentVolumeClaim: 
+            claimName: mongo-pvc-6

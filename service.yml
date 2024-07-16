@@ -1,0 +1,83 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-1
+  namespace: client1
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-2
+  namespace: client2
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-3
+  namespace: client3
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-4
+  namespace: client4
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-5
+  namespace: client5
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service-6
+  namespace: client6
+spec:
+  selector:
+    app: mongodb
+  ports:
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  clusterIP: None
