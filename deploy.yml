@@ -1,10 +1,9 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   namespace: client1
   name: mongodb
 spec:
-  serviceName: mongodb
   replicas: 2
   selector:
     matchLabels:
@@ -49,12 +48,11 @@ spec:
             claimName: mongo-pvc-1
 ---
 apiVersion: apps/v1 
-kind: StatefulSet 
+kind: Deployment
 metadata: 
   namespace: client2
   name: mongodb
 spec: 
-  serviceName: mongodb
   replicas: 2
   selector: 
     matchLabels: 
@@ -98,12 +96,11 @@ spec:
             claimName: mongo-pvc-2
 ---
 apiVersion: apps/v1 
-kind: StatefulSet 
+kind: Deployment 
 metadata: 
   namespace: client3
   name: mongodb
 spec: 
-  serviceName: mongodb
   replicas: 2
   selector: 
     matchLabels: 
@@ -147,12 +144,11 @@ spec:
             claimName: mongo-pvc-3
 ---
 apiVersion: apps/v1 
-kind: StatefulSet 
+kind: Deployment 
 metadata: 
   namespace: client4
   name: mongodb
 spec: 
-  serviceName: mongodb
   replicas: 2
   selector: 
     matchLabels: 
@@ -196,12 +192,11 @@ spec:
             claimName: mongo-pvc-4
 ---
 apiVersion: apps/v1 
-kind: StatefulSet 
+kind: Deployment 
 metadata: 
   namespace: client5
   name: mongodb
 spec: 
-  serviceName: mongodb
   replicas: 2
   selector: 
     matchLabels: 
@@ -245,12 +240,11 @@ spec:
             claimName: mongo-pvc-5
 ---
 apiVersion: apps/v1 
-kind: StatefulSet 
+kind: SDeployment 
 metadata: 
   namespace: client6
   name: mongodb
 spec: 
-  serviceName: mongodb
   replicas: 2
   selector: 
     matchLabels: 
