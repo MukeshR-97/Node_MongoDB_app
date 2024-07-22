@@ -1,9 +1,10 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   namespace: client1
   name: mongodb
 spec:
+  serviceName: mongodb-headless
   replicas: 2
   selector:
     matchLabels:
@@ -15,7 +16,10 @@ spec:
     spec:
       containers:
         - name: mongo
-          image: mukeshravi/mongodb:latestmongo
+          image: mukeshravi/mongodb:latest
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"]
+          ports:
+            - containerPort: 27017
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -25,13 +29,6 @@ spec:
               value: admin 
             - name: MONGODB_ROLE 
               value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0
-          ports:
-            - containerPort: 27017
-          command: ["mongod", "--replSet", "mongoRS"]
           volumeMounts:
             - name: mongo-key-client1
               mountPath: "/etc/secrets-volume"
@@ -48,11 +45,12 @@ spec:
             claimName: mongo-pvc-1
 ---
 apiVersion: apps/v1 
-kind: Deployment
+kind: StatefulSet
 metadata: 
   namespace: client2
   name: mongodb
 spec: 
+  serviceName: mongodb-headless
   replicas: 2
   selector: 
     matchLabels: 
@@ -64,7 +62,8 @@ spec:
     spec: 
       containers: 
         - name: mongo 
-          image: mukeshravi/mongodb:latestmongo 
+          image: mukeshravi/mongodb:latest 
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"]
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -73,11 +72,7 @@ spec:
             - name: MONGODB_DBNAME 
               value: admin 
             - name: MONGODB_ROLE 
-              value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0  
+              value: root   
           ports: 
             - containerPort: 27017 
           volumeMounts: 
@@ -96,11 +91,12 @@ spec:
             claimName: mongo-pvc-2
 ---
 apiVersion: apps/v1 
-kind: Deployment 
+kind: StatefulSet 
 metadata: 
   namespace: client3
   name: mongodb
 spec: 
+  serviceName: mongodb-headless
   replicas: 2
   selector: 
     matchLabels: 
@@ -113,6 +109,7 @@ spec:
       containers: 
         - name: mongo 
           image: mukeshravi/mongodb:latestmongo 
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"]
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -121,11 +118,7 @@ spec:
             - name: MONGODB_DBNAME 
               value: admin 
             - name: MONGODB_ROLE 
-              value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0  
+              value: root   
           ports: 
             - containerPort: 27017 
           volumeMounts: 
@@ -137,18 +130,19 @@ spec:
       volumes: 
         - name: mongo-key-client3
           secret: 
-            defaultMode: 0400 
-            secretName: mongo-key-client3
+           defaultMode: 0400 
+           secretName: mongo-key-client3
         - name: mongo-persistent-storage 
           persistentVolumeClaim: 
             claimName: mongo-pvc-3
 ---
 apiVersion: apps/v1 
-kind: Deployment 
+kind: StatefulSet 
 metadata: 
   namespace: client4
   name: mongodb
 spec: 
+  serviceName: mongodb-headless
   replicas: 2
   selector: 
     matchLabels: 
@@ -160,7 +154,8 @@ spec:
     spec:  
       containers: 
         - name: mongo 
-          image: mukeshravi/mongodb:latestmongo 
+          image: mukeshravi/mongodb:latestmongo
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"] 
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -169,11 +164,7 @@ spec:
             - name: MONGODB_DBNAME 
               value: admin 
             - name: MONGODB_ROLE 
-              value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0  
+              value: root  
           ports: 
             - containerPort: 27017 
           volumeMounts: 
@@ -192,11 +183,12 @@ spec:
             claimName: mongo-pvc-4
 ---
 apiVersion: apps/v1 
-kind: Deployment 
+kind: StatefulSet 
 metadata: 
   namespace: client5
   name: mongodb
 spec: 
+  serviceName: mongodb-headless
   replicas: 2
   selector: 
     matchLabels: 
@@ -209,6 +201,7 @@ spec:
       containers: 
         - name: mongo 
           image: mukeshravi/mongodb:latestmongo
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"]
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -217,11 +210,7 @@ spec:
             - name: MONGODB_DBNAME 
               value: admin 
             - name: MONGODB_ROLE 
-              value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0  
+              value: root   
           ports: 
             - containerPort: 27017 
           volumeMounts: 
@@ -240,11 +229,12 @@ spec:
             claimName: mongo-pvc-5
 ---
 apiVersion: apps/v1 
-kind: SDeployment 
+kind: StatefulSet 
 metadata: 
   namespace: client6
   name: mongodb
 spec: 
+  serviceName: mongodb-headless
   replicas: 2
   selector: 
     matchLabels: 
@@ -257,6 +247,7 @@ spec:
       containers: 
         - name: mongo 
           image: mukeshravi/mongodb:latestmongo 
+          command: ["mongod", "--noauth", "--replSet", "rs0", "--bind_ip_all"]
           env: 
             - name: MONGODB_USERNAME 
               value: admin 
@@ -265,11 +256,7 @@ spec:
             - name: MONGODB_DBNAME 
               value: admin 
             - name: MONGODB_ROLE 
-              value: root 
-            - name: REPLICA_ID 
-              value: mongoRS 
-            - name: HOST 
-              value: mongodb0  
+              value: root   
           ports: 
             - containerPort: 27017 
           volumeMounts: 

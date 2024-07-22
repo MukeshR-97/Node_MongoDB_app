@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client1
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client2
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client3
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client4
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client5
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: client6
+  name: mongodb-headless
+spec:
+  clusterIP: None
+  selector:
+    app: mongo-db
+  ports:
+    - port: 27017
+      name: mongodb
